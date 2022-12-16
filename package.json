@@ -12,7 +12,7 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build": "rollup -c"
+    "build": "rollup -c --bundleConfigAsCjs"
   },
   "author": "Haikel Fazzani",
   "license": "MIT",
@@ -50,5 +50,6 @@
     "component",
     "react",
     "typescript"
-  ]
+  ],
+  "dependencies": {}
 }

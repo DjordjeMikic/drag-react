@@ -25,6 +25,7 @@ import { Draggable } from 'drag-react';
 | children | `any` | `-` | `Some element` |
 | className? | `string` | `'drag-react'` | `Class name for drag wrapper` |
 | style? | `Object` | `{ position: 'fixed', left: '10px', top: '10px', zIndex: 99999 , cursor: 'move' }` | `css style for drag wrapper` |
+| onDrag? | `(_: DOMRect) => void` | `-` | `Called while the user is dragging the element` |
 | onDragStart? | `(_: DOMRect) => void` | `-` | `Called whenever the user mouses down` |
 | onDragEnd? | `(_: DOMRect) => void` | `-` | `Called when dragging stops` |
 

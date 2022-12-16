@@ -1,14 +1,15 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
 interface IDraggable {
-  children: JSX.Element[] | JSX.Element
-  style?: Object,
-  className?: string,
-  onDragStart?: (o: DOMRect) => void,
-  onDragEnd?: (o: DOMRect) => void
+  children: JSX.Element[] | JSX.Element;
+  style?: Object;
+  className?: string;
+  onDragStart?: (o: DOMRect) => void;
+  onDragEnd?: (o: DOMRect) => void;
+  onDrag?: (o: DOMRect) => void;
 }
 
-function Draggable({ children, style, className, onDragStart, onDragEnd }: IDraggable) {
+export const Draggable: React.FC<IDraggable> = ({ children, style, className, onDragStart, onDragEnd, onDrag }) => {
   const dragRef = useRef<HTMLDivElement>(null);
   let isMouseDown: boolean = false;
   let offset: Array<number> = [0, 0];
@@ -65,6 +66,9 @@ function Draggable({ children, style, className, onDragStart, onDragEnd }: IDrag
 
       dragRef.current.style.left = (x + offset[0]) + 'px';
       dragRef.current.style.top = (y + offset[1]) + 'px';
+
+      const rect = dragRef.current?.getBoundingClientRect() as DOMRect;
+      onDrag?.(rect);
     }
   }, []);
 
@@ -92,11 +96,20 @@ function Draggable({ children, style, className, onDragStart, onDragEnd }: IDrag
     }
   }, []);
 
-  return <div
-    ref={dragRef}
-    className={className || "drag-react"}
-    style={{ position: 'fixed', left: '10px', top: '10px', zIndex: 99999, cursor: 'move', ...style }}
-  >{children}</div>
+  return (
+    <div
+      ref={dragRef}
+      className={className || "drag-react"}
+      style={{
+        position: 'fixed',
+        left: '10px',
+        top: '10px',
+        zIndex: 99999,
+        cursor: 'move',
+        ...style,
+      }}
+    >
+      {children}
+    </div>
+  )
 }
-
-export { Draggable }
